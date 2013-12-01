@@ -31,17 +31,6 @@ app.get('/', papercut.index);
 app.post('/generate', papercut.generate);
 app.get('/papercut/:id', papercut.open);
 
-function loadPaperCut(req, res, next) {
-    // You would fetch your user from the db
-    var papercut = users[req.params.id];
-    if (papercut) {
-        req.papercut = papercut;
-        next();
-    } else {
-        next(new Error('Failed to load user ' + req.params.id));
-    }
-}
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
