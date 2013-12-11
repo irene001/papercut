@@ -1,4 +1,5 @@
 var msgModel = require('./../models/Message');
+var config = require('./../config');
 
 exports.index = function(req, res){
     console.log("index page");
@@ -6,8 +7,22 @@ exports.index = function(req, res){
 };
 
 exports.openMessage = function(req, res) {
-    msgModel.find(req.params.id);
-    res.render("papercut.html");// todo: open correct screen
+    var count = 0;
+    msgModel.find(req.params.id, function (err, msg){
+        for (var i = 0; i < msg.length; i++) {
+            //todo: handle 'enter' //todo: handle not found // todo: handle dot and space
+            var letter = msg.charAt(i);
+            msgModel.findImgPath(letter === ' '? 'space' : letter, function(err, letterPath){
+                if (!letterPath) {
+                    letterPath = "eP2q-vQFbV/undefined1.png";
+                }
+                res.write("<img src='" + config.get('imageHost') + letterPath + "'/>");
+                console.log("images: " + config.get('imageHost') + letterPath);
+                count++;
+                if (count == msg.length) res.end();// todo: fix it
+            });
+        }
+    });
 }
 
 exports.saveMessage = function(req, res) {

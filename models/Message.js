@@ -9,10 +9,21 @@ exports.save = function(msg){
     client.set("test_key", msg);// todo: generate id automatically
 }
 
-exports.find = function(id){// todo: choose correct implementation
-    client.unref()//todo: check it out in documentation
-    client.get(id, function (err, value){
-        if (err) throw(err)
-        return value;
+exports.find = function(id, event){
+    var result = client.get(id, function(err, reply) {
+        if (err) throw(err);// todo: handle error
+        event(err, reply);
+        return true;
     });
+}
+
+exports.findImgPath = function find (letter, event){
+    var result = client.srandmember(generateImageId(letter), function(err, reply) {
+        event(err, reply);
+        return true;
+    });
+}
+
+function generateImageId(letter) {
+    return "letter:letter:" + letter;
 }
