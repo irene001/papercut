@@ -29,9 +29,8 @@ exports.saveMessage = function(req, res) {
     console.log("generate image");
     var msg = req.body.message;
     msgModel.save(msg);
-    msgModel.load('test_key', function(value){
-        res.render('index', { title: 'Papercut' , div: "Corrected message: " + value, pic: 'images/e.jpg'});
-    });
+    res.redirect('/');
+
 };
 
 
