@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= title %> </title>
+
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
   <form action="generate" method="post">
-      <input type="text" name="message"/>
-      <input type="submit" value="ok"/>
+
+        <textarea name="message" rows="3" cols="20">Enter your message here...</textarea>
+
+        <--input type="submit" value="ok"/>
+        <button type="submit">Click Me!</button>
+
+
   </form>
+
+
+  <div> <%= div %>   </div>
+  <figure>
+      <figcaption>Paper Cut image.</figcaption>
+      <img src='<%= pic %>' alt="paper cuts for message"/>
+
+  </figure>
+
   </body>
 </html>
