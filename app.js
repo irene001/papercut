@@ -28,8 +28,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', papercut.index);
-app.post('/generate', papercut.generate);
-app.get('/papercut/:id', papercut.open);
+app.post('/saveMessage', papercut.saveMessage);
+app.get('/papercut/:id', papercut.openMessage);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

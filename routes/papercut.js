@@ -5,12 +5,12 @@ exports.index = function(req, res){
   res.render('index', { title: 'Papercut' });
 };
 
-exports.open = function(req, res) {
+exports.openMessage = function(req, res) {
     msgModel.find(req.params.id);
     res.render("papercut.html");// todo: open correct screen
 }
 
-exports.generate = function(req, res) {
+exports.saveMessage = function(req, res) {
     console.log("generate image");
     var msg = req.body.message;
     msgModel.save(msg);
