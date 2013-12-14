@@ -8,6 +8,7 @@ exports.index = function(req, res){
 
 exports.openMessage = function(req, res) {
     var count = 0;
+    var images = [];
     msgModel.find(req.params.id, function (err, msg){
         for (var i = 0; i < msg.length; i++) {
             //todo: handle 'enter' //todo: handle not found // todo: handle dot and space
@@ -16,10 +17,12 @@ exports.openMessage = function(req, res) {
                 if (!letterPath) {
                     letterPath = "eP2q-vQFbV/undefined1.png";
                 }
-                res.write("<img src='" + config.get('imageHost') + letterPath + "'/>");
                 console.log("images: " + config.get('imageHost') + letterPath);
+                images.push(config.get('imageHost') + letterPath);
                 count++;
-                if (count == msg.length) res.end();// todo: fix it
+                if (count == msg.length) {// todo: fix it
+                    res.render('canvas', { title: 'Message' , sources: images});
+                }
             });
         }
     });
