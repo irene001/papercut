@@ -15,7 +15,7 @@ exports.openMessage = function(req, res) {
             var letter = msg.charAt(i);
             msgModel.findImgPath(letter === ' '? 'space' : letter, function(err, letterPath){
                 if (!letterPath) {
-                    letterPath = "eP2q-vQFbV/undefined1.png";
+                    letterPath = "undefined1.png";
                 }
                 console.log("images: " + config.get('imageHost') + letterPath);
                 images.push(config.get('imageHost') + letterPath);
@@ -31,8 +31,11 @@ exports.openMessage = function(req, res) {
 exports.saveMessage = function(req, res) {
     console.log("generate image");
     var msg = req.body.message;
-    msgModel.save(msg);
-    res.redirect('/');
+    msgModel.save(msg, function(key){
+        res.redirect('/papercut/' + key);
+    });
+    //res.redirect('/');
+
 
 };
 
