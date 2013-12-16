@@ -15,7 +15,7 @@ exports.openMessage = function(req, res) {
             var letter = msg.charAt(i);
             msgModel.findImgPath(letter === ' '? 'space' : letter, function(err, letterPath){
                 if (!letterPath) {
-                    letterPath = "eP2q-vQFbV/undefined1.png";
+                    letterPath = "undefined1.png";
                 }
                 console.log("images: " + config.get('imageHost') + letterPath);
                 images.push(config.get('imageHost') + letterPath);
