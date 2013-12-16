@@ -34,9 +34,6 @@ exports.saveMessage = function(req, res) {
     msgModel.save(msg, function(key){
         res.redirect('/papercut/' + key);
     });
-    //res.redirect('/');
-
-
 };
 
 

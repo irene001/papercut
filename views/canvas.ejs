@@ -19,20 +19,27 @@
 
             for (var i in pic) {
                 var imageObj = new Image();
-                imageObj.src = pic[i];
+
                 console.log("path"+imageObj.src);
-                ctx.drawImage(imageObj, (10+step), 10, 48,48);
+                imageObj.onload = drawImg(ctx, imageObj, step);
+                imageObj.src = pic[i];
                 step = step + 55;
             }
         });
         window.onerror = function(message, source, lineno) {
             alert("Error:"+message +"\n" + "file:" + source + "\n" +  "line:" + lineno);
         };
+
+        function drawImg(ctx, image, step){
+            return function(){
+                ctx.drawImage(image, (10+step), 10, 48,48);
+            }
+        }
     </script>
 
 </head>
 <body>
-<canvas id="myCanvas" width="978" height="800" style="border:2px solid #d3d3d3;"></canvas>
+<canvas id="myCanvas" width="978" height="800"></canvas>
 
 </body>
 </html>
