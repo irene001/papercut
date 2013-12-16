@@ -31,8 +31,11 @@ exports.openMessage = function(req, res) {
 exports.saveMessage = function(req, res) {
     console.log("generate image");
     var msg = req.body.message;
-    msgModel.save(msg);
-    res.redirect('/');
+    msgModel.save(msg, function(key){
+        res.redirect('/papercut/' + key);
+    });
+    //res.redirect('/');
+
 
 };
 
