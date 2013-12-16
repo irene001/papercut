@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var canvas=document.getElementById("myCanvas");
+            var ctx=canvas.getContext("2d");
+            var step = 0;
+            var pic = "<%= sources %>";
+            pic = pic.split(',')
+            console.log(pic);
+
+            for (var i in pic) {
+                var imageObj = new Image();
+                imageObj.src = pic[i];
+                console.log("path"+imageObj.src);
+                ctx.drawImage(imageObj, (10+step), 10, 48,48);
+                step = step + 55;
+            }
+        });
+        window.onerror = function(message, source, lineno) {
+            alert("Error:"+message +"\n" + "file:" + source + "\n" +  "line:" + lineno);
+        };
+    </script>
+
+</head>
+<body>
+<canvas id="myCanvas" width="978" height="800" style="border:2px solid #d3d3d3;"></canvas>
+
+</body>
+</html>
