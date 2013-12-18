@@ -7,7 +7,7 @@ var appMessagesResource = require('../resources.json');
 
 exports.index = function(req, res){
     console.log("index page");
-    res.render('index', { title: 'Papercut' , div: "", pic: 'images/default.jpg', errorMsg:''});
+    res.render('index', { title: 'Papercut' , div: "", pic: '/images/default.jpg', errorMsg:''});
 };
 
 exports.saveMessage = function (req, res) {
@@ -25,8 +25,8 @@ exports.openMessage = function (req, res) {
 
     function parseMessage(err, msg) {
         if(!msg) {
-            res.render('index', { title: 'Papercut' , div: "Corrected message:",
-                errorMsg:appMessagesResource["msgNotFound"],  pic: 'images/default.jpg'});
+            res.render('index', { title: 'Papercut' , div: "", pic: '/images/default.jpg',
+                errorMsg:appMessagesResource["msgNotFound"]});
             return;
         }
 
