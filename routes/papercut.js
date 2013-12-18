@@ -2,11 +2,12 @@ var msgModel = require('./../models/Message');
 var config = require('./../config');
 var async = require('async');
 
-var UNDEFINED_LETTER_PATH = "undefined1.png"
+var UNDEFINED_LETTER_PATH = "undefined1.png";
+var appMessagesResource = require('../resources.json');
 
 exports.index = function(req, res){
     console.log("index page");
-    res.render('index', { title: 'Papercut' , div: "", pic: 'images/default.jpg'});
+    res.render('index', { title: 'Papercut' , div: "", pic: 'images/default.jpg', errorMsg:''});
 };
 
 exports.saveMessage = function (req, res) {
@@ -23,6 +24,12 @@ exports.openMessage = function (req, res) {
     msgModel.find(req.params.id, parseMessage);
 
     function parseMessage(err, msg) {
+        if(!msg) {
+            res.render('index', { title: 'Papercut' , div: "Corrected message:",
+                errorMsg:appMessagesResource["msgNotFound"],  pic: 'images/default.jpg'});
+            return;
+        }
+
         msg = msg.toLowerCase();
         var callbacks = [];
 
@@ -33,7 +40,7 @@ exports.openMessage = function (req, res) {
 
         function searchByLetter(letter) {
             return function (callback) {
-                msgModel.findImgPath(letter === ' ' ? 'space' : letter, processLetter(callback));
+                msgModel.findImgPath(letter === ' ' ? 'space' : letter, handleLetter(callback));
             }
         }
 
@@ -45,7 +52,7 @@ exports.openMessage = function (req, res) {
         });
     }
 
-    function processLetter(callback) {
+    function handleLetter(callback) {
         return function (err, letterPath) {
             if (!letterPath) {
                 letterPath = UNDEFINED_LETTER_PATH;

@@ -3,9 +3,15 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-  <form action="saveMessage" method="post">
+  <div class="alert alert-error" id="errorMessage" style="display: none; width: 400px">
+      <a class="close" onclick="hideErrorMessage()">×</a>
+      <%= errorMsg %>
+  </div>
+
+  <form action="/saveMessage" method="post">
         <textarea placeholder="Enter message" maxlength="140" name="message" rows="8" cols="40"></textarea>
         <input type="submit" value="Generate"/>
   </form>
@@ -14,6 +20,21 @@
   <figure>
       <img src='<%= pic %>' alt="paper cuts for message"/>
   </figure>
+
+  <script src="/lib/bootstrap.min.js"></script>
+  <script>
+      checkOutExceptions("<%= errorMsg %>");
+      function checkOutExceptions(errorMsg) {
+          if (errorMsg) {
+              document.getElementById("errorMessage").style.display = 'block';
+          }
+      }
+
+      function hideErrorMessage() {
+          document.getElementById("errorMessage").style.display = 'none';
+      }
+  </script>
+
   </body>
 
 </html>
