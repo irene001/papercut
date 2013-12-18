@@ -6,7 +6,7 @@ var UNDEFINED_LETTER_PATH = "undefined1.png"
 
 exports.index = function(req, res){
     console.log("index page");
-    res.render('index', { title: 'Papercut' , div: "Corrected message:", pic: 'images/default.jpg'});
+    res.render('index', { title: 'Papercut' , div: "", pic: 'images/default.jpg'});
 };
 
 exports.saveMessage = function (req, res) {
@@ -18,12 +18,12 @@ exports.saveMessage = function (req, res) {
 };
 
 exports.openMessage = function (req, res) {
-    var count = 0;
     var images = [];
 
     msgModel.find(req.params.id, parseMessage);
 
     function parseMessage(err, msg) {
+        msg = msg.toLowerCase();
         var callbacks = [];
 
         for (var i = 0; i < msg.length; i++) {

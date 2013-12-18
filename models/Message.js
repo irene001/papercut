@@ -20,6 +20,7 @@ exports.find = function(id, event){
 
 exports.findImgPath = function find (letter, event){
     var result = client.srandmember(generateImageId(letter), function(err, reply) {
+        //
         event(err, reply);
         return true;
     });

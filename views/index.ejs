@@ -3,45 +3,17 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="lib/hashids.min.js"></script>
   </head>
   <body>
-  <script>
-      function clearContents(element) {
-          console.log("clear");
-          element.value = '';
-      }
-
-      function generatePaperCut(){
-          console.log("generate");
-          var Hashids = require("hashids"),
-          hashids = new Hashids("this is my salt");
-
-          var hash = hashids.encrypt(1,2,3,4,5);
-          var link = document.getElementById("link");
-
-          console.log(link);
-          return true;
-
-      }
-  </script>
-
-  <form action="saveMessage" method="post" onsubmit="return generatePaperCut()">
-        <textarea name="message" rows="8" cols="40" onfocus="clearContents(this);">Enter your message here...</textarea>
+  <form action="saveMessage" method="post">
+        <textarea placeholder="Enter message" maxlength="140" name="message" rows="8" cols="40"></textarea>
         <input type="submit" value="Generate"/>
   </form>
 
   <div> <%= div %>   </div>
   <figure>
-      <figcaption>Paper Cut image.</figcaption>
       <img src='<%= pic %>' alt="paper cuts for message"/>
   </figure>
-  <p>title</p>
-  <h3>
-      <a id= "link" href="http://localhost:3000/papercut/" >hash</a>
-  </h3>
-
-
   </body>
 
 </html>

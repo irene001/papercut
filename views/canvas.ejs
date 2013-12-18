@@ -10,6 +10,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            var x = 10;
+            var y = 10;
+            var image_size = 48;
+            var canvas_width = 800;
+
             var canvas=document.getElementById("myCanvas");
             var ctx=canvas.getContext("2d");
             var step = 0;
@@ -21,25 +26,27 @@
                 var imageObj = new Image();
 
                 console.log("path"+imageObj.src);
-                imageObj.onload = drawImg(ctx, imageObj, step);
+                imageObj.onload = drawImg(ctx, imageObj, x, y);
                 imageObj.src = pic[i];
-                step = step + 55;
+                x = x + (image_size +4);
+                if ( x >= (canvas_width - image_size)) {
+                    y = y + (image_size +7);
+                    x = 10;
+                }
+
+            }
+
+            function drawImg(ctx, image, x, y){
+                return function(){
+                    ctx.drawImage(image, x, y, image_size, image_size);
+                }
             }
         });
-        window.onerror = function(message, source, lineno) {
-            alert("Error:"+message +"\n" + "file:" + source + "\n" +  "line:" + lineno);
-        };
-
-        function drawImg(ctx, image, step){
-            return function(){
-                ctx.drawImage(image, (10+step), 10, 48,48);
-            }
-        }
     </script>
 
 </head>
 <body>
-<canvas id="myCanvas" width="978" height="800"></canvas>
+<canvas id="myCanvas" width="800" height="1400" style="border:1px solid #000000;">></canvas>
 
 </body>
 </html>
