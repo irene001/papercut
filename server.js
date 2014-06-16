@@ -1,3 +1,4 @@
+#!/bin/env node
 var express = require('express');
 var papercut = require('./routes/papercut');
 var http = require('http');
@@ -7,7 +8,10 @@ var config = require('./config');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || config.get('port'));
+//app.set('port', process.env.PORT || config.get('port'));
+var ipaddr  = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port    = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+//app.set('port',process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -31,6 +35,8 @@ app.get('/', papercut.index);
 app.post('/saveMessage', papercut.saveMessage);
 app.get('/papercut/:id', papercut.openMessage);
 
-http.createServer(app).listen(app.get('port'), function(){
+
+
+http.createServer(app).listen(port, ipaddr, function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
